@@ -343,5 +343,10 @@ module.exports = _.assign( new EventEmitter(), {
 		if ( fsm.can( 'stop' ) ) {
 			fsm.stop();
 		}
+	},
+
+	destroyAudioElement: function () {
+		this.emit( 'destroyAudioElement' );
 	}
+
 } );

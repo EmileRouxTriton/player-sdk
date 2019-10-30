@@ -26,7 +26,7 @@ define( [
 	var html5Live = declare( [ Evented ], {
 
 		/**
-		 * Convert html5 playback status code to dojo i18n localized messages
+		 * Convert html5 playback status code to dojo i18n localized messages 
 		 *
 		 * @ignore
 		 */
@@ -299,9 +299,16 @@ define( [
 			console.log( 'html5Live::__initAudioElement' );
 
 			if ( this.audioEventListenersAttached == false ) {
+				MediaElement.on( 'destroyAudioElement', this.__destroyAudioElement );
 				MediaElement.on( 'html5-playback-status', lang.hitch( this, this.__onHTML5PlayerStatus ) );
 				this.audioEventListenersAttached = true;
-			}
+			}			
+		},
+
+		__destroyAudioElement: function () {
+			console.log( 'html5Live::__destroyAudioElement' );
+			MediaElement.removeAllListeners( 'html5-playback-status' );
+			MediaElement.removeAllListeners( 'destroyAudioElement' );
 		},
 
 		__onHTML5PlayerStatus: function ( e ) {
